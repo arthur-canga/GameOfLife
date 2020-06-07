@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
-project(GameOfLife C)
+project(TestLecturaArchivos C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(GameOfLife main.c validation.c libvalidate.h)
+add_executable(TestLecturaArchivos main.c)
