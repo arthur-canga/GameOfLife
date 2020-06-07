@@ -1,31 +1,25 @@
 #include <stdio.h>
-#include <string.h>
-#include <unistd.h>
+#include "libvalidate.h"
 
-char *lectura(char *name){
-    char dir[FILENAME_MAX];
-    getcwd(dir,FILENAME_MAX);
-    char fulldir[FILENAME_MAX]="\0";
-    strcat(fulldir,dir);
-    strcat(fulldir,"/");
-    strcat(fulldir,name);
-    FILE *archivo=fopen(fulldir,"r");
-    if (!archivo){
-        printf("Error de apertura. El archivo no existe");
-        return NULL;
-    }
-    static char test[FILENAME_MAX];
-    char buff[FILENAME_MAX];
-    while(!feof(archivo)){
-        fgets(buff,FILENAME_MAX,archivo);
-        strcat(test,buff);
-    }
-    return test;
-}
+//Estructura de la validacion
+//1. Convertir archivo a string - DONE
+//2. Eliminar espacios y saltos de linea - DONE
+//3. Validar - WIP
+//4. Convertir string a arreglo
 
+//Prueba 1: leer un archivo de texto cualquiera, probar eliminarespacios y limiter. Correcto!
+//Prueba 2: introducir una cadena de arreglos de igual dimension, pasarle eliminarespacios, balanceyvalores, limiter
+//          y check. Correcto!
+//Prueba 3:
 int main() {
     char *array;
     array=lectura("prueba.txt");
-    printf("%s",array);
+    eliminarespacios(array);
+    int i;
+    if(balanceyvalores(array)){
+        i=limiter(array);
+        printf("%d\n",check(array,i));
+    }
+    printf("%s\n",array);
     return 0;
 }
