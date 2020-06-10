@@ -21,7 +21,7 @@ char *lectura(char *name){
         fprintf(stderr,"Error de apertura. El archivo no existe");
         exit(0);
     }
-    static char test[FILENAME_MAX];
+    char *test= (char *) malloc(FILENAME_MAX * sizeof(char));
     char buff[FILENAME_MAX];
     fgets(buff,FILENAME_MAX,archivo);
     while(!feof(archivo)){
@@ -129,4 +129,44 @@ int check(const char array[], int limit){
         dimaux=0;
     }
     return 1;
+}
+
+//Obtiene la dimensión en Y (cantidad de filas)
+int getdimY(const char *s){
+    int dim=0;
+    for (int i = 0; s[i] ; i++) {
+        if (s[i]==',' && (s[i-1]=='}' && s[i+1]=='{'))
+            dim++;
+    }
+    return dim+1;
+}
+
+//Obtiene la dimensión en X (casillas de arreglo individual)
+int getdimX(const char *s){
+    int dim=0;
+    for (int i = 0; (s[i]!=',' && s[i+1]!='}') ; i++) {
+        if (s[i]==',' && (s[i+1]=='0' || s[i+1]=='1'))
+            dim++;
+    }
+    return dim+1;
+}
+
+int **generatematrix(char *string, int X, int Y){
+    //Reservamos espacio
+    int **matrix=(int **)malloc(Y*sizeof(int*));
+    for (int a = 0; a < Y; a++) {
+        matrix[a]=(int *)malloc(X*sizeof(int));
+    }
+    int j=0;
+    int s=0;
+    for (int i = 0; i < Y; i++) {
+        for (; string[s]!='}'; s++) {
+            if (string[s]=='0' || string[s]=='1'){
+                matrix[i][j]=(int)string[s];
+                j++;
+            }
+        }
+    }
+    free(string);
+    return matrix;
 }
