@@ -23,9 +23,10 @@ char *lectura(char *name){
     }
     static char test[FILENAME_MAX];
     char buff[FILENAME_MAX];
+    fgets(buff,FILENAME_MAX,archivo);
     while(!feof(archivo)){
-        fgets(buff,FILENAME_MAX,archivo);
         strcat(test,buff);
+        fgets(buff,FILENAME_MAX,archivo);
     }
     return test;
 }
@@ -82,12 +83,12 @@ int check(const char array[], int limit){
 
     //Chequeo de primera fila y calculo de dimension
     for (; array[i]!='}' ; i++) {
+        if ((array[i]=='0' || array[i]=='1') && (array[i+1]!=',' && array[i+1]!='}')){
+            printf("Error found on %d. Value too big\n", i);
+            return 0;
+        }
         if(array[i]==','){
             dim++;
-            if ((array[i]=='0' || array[i]=='1') && (array[i+1]!=',' && array[i+1]!='}')){
-                printf("Error found on %d. Value too big\n", i);
-                return 0;
-            }
             if((array[i-1]!='0' && array[i-1]!='1') && (array[i+1]!='0' && array[i+1]!='1')){
                 printf("Error found on %d\n",i);
                 return 0;
@@ -101,6 +102,7 @@ int check(const char array[], int limit){
             i++;
             //Empezamos a leer el siguiente arreglo
             for ( ; array[i]!='}' ; i++) {
+                //Si estoy en un numero y el siguiente no es coma o cierre de corchete...
                 if ((array[i]=='0' || array[i]=='1') && (array[i+1]!=',' && array[i+1]!='}')) {
                     printf("Error found on %d. Value too big\n", i);
                     return 0;

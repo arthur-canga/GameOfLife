@@ -20,6 +20,5 @@ int main() {
         i=limiter(array);
         printf("%d\n",check(array,i));
     }
-    printf("%s\n",array);
     return 0;
 }
