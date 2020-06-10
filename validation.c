@@ -84,6 +84,10 @@ int check(const char array[], int limit){
     for (; array[i]!='}' ; i++) {
         if(array[i]==','){
             dim++;
+            if ((array[i]=='0' || array[i]=='1') && (array[i+1]!=',' && array[i+1]!='}')){
+                printf("Error found on %d. Value too big\n", i);
+                return 0;
+            }
             if((array[i-1]!='0' && array[i-1]!='1') && (array[i+1]!='0' && array[i+1]!='1')){
                 printf("Error found on %d\n",i);
                 return 0;
@@ -97,11 +101,15 @@ int check(const char array[], int limit){
             i++;
             //Empezamos a leer el siguiente arreglo
             for ( ; array[i]!='}' ; i++) {
+                if ((array[i]=='0' || array[i]=='1') && (array[i+1]!=',' && array[i+1]!='}')) {
+                    printf("Error found on %d. Value too big\n", i);
+                    return 0;
+                }
                 //Si la posicion es una coma...
                 if(array[i]==','){
                     //Contado auxiliar aumenta
                     dimaux++;
-                    //Verificamos que la estructura sea valida y si no es return 0
+                    //Verificamos que la estructura sea valida y sino return 0
                     if((array[i-1]!='0' && array[i-1]!='1') && (array[i+1]!='0' && array[i+1]!='1')){
                         printf("Error found on %d\n",i);
                         return 0;
