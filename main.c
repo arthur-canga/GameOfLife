@@ -1,25 +1,25 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "libvalidate.h"
 
-//Estructura de la validacion
-//1. Convertir archivo a string - DONE
-//2. Eliminar espacios y saltos de linea - DONE
-//3. Validar - WIP
-//4. Convertir string a arreglo
+//Validacion finalizada
+//TODO generacion celular
+//TODO refresh de pantalla
+//TODO representacion triple matricial
 
-//Prueba 1: leer un archivo de texto cualquiera, probar eliminarespacios y limiter. Correcto!
-//Prueba 2: introducir una cadena de arreglos de igual dimension, pasarle eliminarespacios, balanceyvalores, limiter
-//          y check. Correcto!
-//Prueba 3:
+//Variable content=matriz principal
+//Variables X y Y representan la cantidad de filas y columnas.
 int main() {
-    char *array;
-    array=lectura("prueba.txt");
-    eliminarespacios(array);
-    int i;
-    if(balanceyvalores(array)){
-        i=limiter(array);
-        printf("%d\n",check(array,i));
-    }
-    printf("%s\n",array);
+    char *string;
+    char *name=(char *)malloc(FILENAME_MAX*sizeof(char ));
+    printf("Introduzca el nombre del archivo con su extension correspondiente: ");
+    scanf("%s",name);
+    string=obtainer(name);
+    free(name);
+    int x;
+    int y;
+    int **content=generatematrix(string,&x,&y);
+    free(string);
+    //Aqui resto del programa
     return 0;
 }

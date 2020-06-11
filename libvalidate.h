@@ -13,3 +13,11 @@ int balanceyvalores(const char *s);
 int limiter(const char array[]);
 
 int check(const char array[], int limit);
+
+int getdimY(const char *s);
+
+int getdimX(const char *s);
+
+int **generatematrix(char *string, int *X, int *Y);
+
+char *obtainer(char *s);
