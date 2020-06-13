@@ -28,6 +28,7 @@ char *lectura(char *name){
         strcat(content,buff);
         fgets(buff,FILENAME_MAX,archivo);
     }
+    fclose(archivo);
     return content;
 }
 
