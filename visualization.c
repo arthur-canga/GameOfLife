@@ -48,13 +48,14 @@ void show(char *ogfile, int **plana, int **vertical, int **horizontal, const int
 
         //Llamada de limpiado de pantalla. NOTA: CLION NO LO INTERPRETA, EL TERMINAL SI. NO FUNCIONA EN WINDOWS
         printf("\e[1;1H\e[2J");
-
-        fprintf(planafile,"Iteracion %d\n",i+1);
-        fprintf(verticalfile,"Iteracion %d\n",i+1);
-        fprintf(horizontalfile,"Iteracion %d\n",i+1);
-        fprintf(planafile,"\n");
-        fprintf(verticalfile,"\n");
-        fprintf(horizontalfile,"\n");
+        if (i>-1) {
+            fprintf(planafile, "Iteracion %d\n", i + 1);
+            fprintf(verticalfile, "Iteracion %d\n", i + 1);
+            fprintf(horizontalfile, "Iteracion %d\n", i + 1);
+            fprintf(planafile, "\n");
+            fprintf(verticalfile, "\n");
+            fprintf(horizontalfile, "\n");
+        }
         printf("Iteracion %d",i+1);
         if (i==-1){
             printf(" (iteración inicial)");
@@ -103,7 +104,9 @@ void show(char *ogfile, int **plana, int **vertical, int **horizontal, const int
             //Un for pa la primera matriz
             printf("%c",186);
             for (int k = 0; k < x; k++) {
-                printf("%d",plana[j][k]);
+                if (!plana[j][k]){
+                    printf(" ");
+                } else printf("%c",219);
             }
             printf("%c",186);
             //5 espacios entre matrices
@@ -111,7 +114,9 @@ void show(char *ogfile, int **plana, int **vertical, int **horizontal, const int
             //Un for para la segunda matriz
             printf("%c",186);
             for (int l = 0; l < x; l++) {
-                printf("%d",plana[j][l]);
+                if (!vertical[j][l]){
+                    printf(" ");
+                } else printf("%c",219);
             }
             printf("%c",186);
             //5 espacios
@@ -119,7 +124,9 @@ void show(char *ogfile, int **plana, int **vertical, int **horizontal, const int
             //for para la 3ra matriz
             printf("%c",186);
             for (int m = 0; m < x; m++) {
-                printf("%d",plana[j][m]);
+                if (!horizontal[j][m]){
+                    printf(" ");
+                } else printf("%c",219);
             }
             //Salto de linea entre las filas
             printf("%c\n",186);
