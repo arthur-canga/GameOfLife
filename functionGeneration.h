@@ -9,15 +9,13 @@
 
 int VerifCelula(int **content, int beginF, int endF, int beginC, int endC, int x, int y);
 
-int **Create_Plana(int **content, int n, int m);
+int Verif_Cel_Vert(int **vert, int beginF, int endF, int beginC, int endC, int extre_f, int x, int y);
 
-int **Create_Vert(int **content, int n, int m);
+int Verif_Cel_Hor(int **vert, int beginF, int endF, int beginC, int endC, int extre_c, int x, int y);
 
-int **Create_Hor(int **content, int n, int m);
+void Generacion_Plana(int **plana, int n, int m);
 
-int **Generacion_Plana(int **plana, int n, int m);
+void Generacion_Vertical(int **vertical, int n, int m);
 
-int **Generacion_Vertical(int **vertical, int n, int m);
-
-int **Generacion_Horitzontal(int **horizontal, int n, int m);
+void Generacion_Horizontal(int **horizontal, int n, int m);
 

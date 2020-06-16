@@ -20,6 +20,11 @@ int main() {
     int y;
     int **content=generatematrix(string,&x,&y);
     free(string);
+    int **plana=generatematrix(*string,&x,&y);
+    int **vertical=generatematrix(*string,&x,&y);
+    int **horizontal=generatematrix(*string,&x,&y);
+
+    Generacion
     //Aqui resto del programa
     return 0;
 }
