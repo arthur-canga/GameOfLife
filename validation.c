@@ -16,6 +16,7 @@ char *lectura(char *name){
     strcat(fulldir,dir);
     strcat(fulldir,"/");
     strcat(fulldir,name);
+    strcat(fulldir,".txt");
     FILE *archivo=fopen(fulldir,"r");
     if (!archivo){
         fprintf(stderr,"Error de apertura. El archivo no existe");
@@ -28,6 +29,7 @@ char *lectura(char *name){
         strcat(content,buff);
         fgets(buff,FILENAME_MAX,archivo);
     }
+    fclose(archivo);
     return content;
 }
 

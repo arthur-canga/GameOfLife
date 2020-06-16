@@ -13,8 +13,13 @@
 int main() {
     char *string;
     char *name=(char *)malloc(FILENAME_MAX*sizeof(char ));
-    printf("Introduzca el nombre del archivo con su extension correspondiente: ");
+    int i,t;
+    printf("Introduzca el nombre del archivo (sin su extensión de archivo): ");
     scanf("%s",name);
+    printf("Introduzca la cantidad de iteraciones que quiere generar: ");
+    scanf("%d",&i);
+    printf("Introduzca el tiempo entre iteraciones (en milisegundos): ");
+    scanf("%d",&t);
     string=obtainer(name);
     free(name);
     int x;
