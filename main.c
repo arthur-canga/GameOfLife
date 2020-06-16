@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "libvalidate.h"
+#include "functionGeneration.h"
 
 //Validacion finalizada
 //TODO generacion celular
@@ -24,7 +25,10 @@ int main() {
     int **vertical=generatematrix(*string,&x,&y);
     int **horizontal=generatematrix(*string,&x,&y);
 
-    Generacion
+    Generacion_Plana(plana,&x,&y);
+    Generacion_Vertical(vertical,&x,&y);
+    Generacion_Horizontal(horizontal,&x,&y);
+    //El programa compila pero el codigo de retorno del main es un 11, en vez de un 0
     //Aqui resto del programa
     return 0;
 }

@@ -67,7 +67,7 @@ void Generacion_Plana(int **pla, int n, int m){
                 pla[i][j] = VerifCelula(pla,i,i+1,j,j+1,i,j);
             }
             else if (i==0 && j==m-1){
-                pla[i][j] = VerifCelula(pla,i,i+1,j-1,j,i,j);
+                pla[i][j] = VerifCelula(pla,i,j-1,i+1,j,i,j);
             }
             else if (i==n-1 && j==0){
                 pla[i][j] = VerifCelula(pla,i-1,i,j,j+1,i,j);
