@@ -30,7 +30,7 @@ int main() {
     int **plana=generatematrix(string,&x,&y);
     int **vertical=generatematrix(string,&x,&y);
     int **horizontal=generatematrix(string,&x,&y);
-    // free(string);
+    free(string);
     show(name,plana,vertical,horizontal,x,y,t,n);
     return 0;
 }
