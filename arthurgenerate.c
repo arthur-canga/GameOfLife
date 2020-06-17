@@ -124,9 +124,12 @@ void checkplana(int **matrix, int **aux, int n, int m, int x, int y){
     }
 
     //CAMBIO DE LA CELULA
-    if (vecinos<2 || vecinos>3){
+    if (matrix[n][m] && (vecinos==2 || vecinos==3))
+        aux[n][m]=1;
+    if (matrix[n][m] && (vecinos<2 || vecinos>3))
         aux[n][m]=0;
-    } else aux[n][m]=1;
+    if (!matrix[n][m] && vecinos==3)
+        aux[n][m]=1;
 }
 
 //MIN VECINOS: 5
@@ -275,9 +278,12 @@ void checkvertical(int **matrix, int **aux, int n, int m, int x, int y){
     }
 
     //CAMBIO DE LA CELULA
-    if (vecinos<2 || vecinos>3){
+    if (matrix[n][m] && (vecinos==2 || vecinos==3))
+        aux[n][m]=1;
+    if (matrix[n][m] && (vecinos<2 || vecinos>3))
         aux[n][m]=0;
-    } else aux[n][m]=1;
+    if (!matrix[n][m] && vecinos==3)
+        aux[n][m]=1;
 }
 
 
@@ -425,10 +431,12 @@ void checkhorizontal(int **matrix, int **aux, int n, int m, int x, int y){
     }
 
     //CAMBIO DE LA CELULA
-    if (vecinos<2 || vecinos>3){
+    if (matrix[n][m] && (vecinos==2 || vecinos==3))
+        aux[n][m]=1;
+    if (matrix[n][m] && (vecinos<2 || vecinos>3))
         aux[n][m]=0;
-    } else aux[n][m]=1;
-
+    if (!matrix[n][m] && vecinos==3)
+        aux[n][m]=1;
 }
 
 void clone(int **a, int **b, int x, int y){

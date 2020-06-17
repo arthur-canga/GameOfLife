@@ -23,15 +23,21 @@ void printinfile(FILE *file, int **matrix, int x, int y){
 void printinscreen(int **matrix1, int **matrix2, int **matrix3, int x, int y){
     for (int i = 0; i < x; i++) {
         for (int j = 0; j < y; j++) {
-            printf("%d",matrix1[i][j]);
+            if (!matrix1[i][j])
+                printf(".");
+            else printf("0");
         }
         printf("     ");
         for (int j = 0; j < y; j++) {
-            printf("%d",matrix2[i][j]);
+            if (!matrix2[i][j])
+                printf(".");
+            else printf("0");
         }
         printf("     ");
         for (int j = 0; j < y; j++) {
-            printf("%d",matrix1[i][j]);
+            if (!matrix3[i][j])
+                printf(".");
+            else printf("0");
         }
         printf("\n");
     }
