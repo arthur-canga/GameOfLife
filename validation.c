@@ -8,6 +8,14 @@
 #include <string.h>
 #include <unistd.h>
 
+
+//Halla el ultimo elemento del arreglo. Usado para la funcion check
+int limiter(const char array[]){
+    int i=0;
+    for (; array[i] ; i++);
+    return i;
+}
+
 //Lee el archivo y extrae su contenido en una cadena
 char *lectura(char *name){
     char dir[FILENAME_MAX];
@@ -24,11 +32,16 @@ char *lectura(char *name){
     }
     char *content= (char *)malloc(FILENAME_MAX * sizeof(char));
     char buff[FILENAME_MAX];
+    int i=0;
     fgets(buff,FILENAME_MAX,archivo);
     while(!feof(archivo)){
         strcat(content,buff);
+        i++;
         fgets(buff,FILENAME_MAX,archivo);
     }
+    int last=limiter(buff);
+    if (buff[last-1]!='\n')
+        strcat(content,buff);
     fclose(archivo);
     return content;
 }
@@ -59,13 +72,6 @@ int balanceyvalores(const char *s){
     if(corch)
         return 0;
     else return 1;
-}
-
-//Halla el ultimo elemento del arreglo. Usado para la funcion check
-int limiter(const char array[]){
-    int i=0;
-    for (; array[i] ; i++);
-    return i;
 }
 
 //Chequea que la fila sea valida
@@ -133,8 +139,8 @@ int check(const char array[], int limit){
     return 1;
 }
 
-//Obtiene la dimensión en Y (cantidad de filas)
-int getdimY(const char *s){
+//Obtiene la dimensión en X (cantidad de filas)
+int getdimX(const char *s){
     int dim=0;
     for (int i = 0; s[i] ; i++) {
         if (s[i]==',' && (s[i-1]=='}' && s[i+1]=='{'))
@@ -143,8 +149,8 @@ int getdimY(const char *s){
     return dim+1;
 }
 
-//Obtiene la dimensión en X (casillas de arreglo individual)
-int getdimX(const char *s){
+//Obtiene la dimensión en Y (casillas de arreglo individual)
+int getdimY(const char *s){
     int dim=0;
     for (int i = 0; s[i]!='}' ; i++) {
         if (s[i]==',' && (s[i+1]=='0' || s[i+1]=='1'))
@@ -157,14 +163,14 @@ int **generatematrix(char *string, int *X, int *Y){
     *X=getdimX(string);
     *Y=getdimY(string);
     //Reservamos espacio
-    int **matrix=(int **)malloc(*Y*sizeof(int*));
+    int **matrix=(int **)malloc(*X*sizeof(int*));
     for (int a = 0; a < *Y; a++) {
-        matrix[a]=(int *)malloc(*X*sizeof(int));
+        matrix[a]=(int *)malloc(*Y*sizeof(int));
     }
     int j;
     int s=0;
-    //for recorre en Y el arreglo
-    for (int i = 0; i < *Y; i++) {
+    //for recorre en X el arreglo
+    for (int i = 0; i < *X; i++) {
         //Inicializa el contador para recorrer en X
         j=0;
         //for recorre la cadena, variable declarada para guardar el valor

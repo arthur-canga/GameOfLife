@@ -8,11 +8,30 @@
 #include <string.h>
 #include <unistd.h>
 #include "libvalidate.h"
+#include "functionGeneration.h"
+#include "arthurlib.h"
 
 void printinfile(FILE *file, int **matrix, int x, int y){
-    for (int i = 0; i < y; i++) {
-        for (int j = 0; j < x; j++) {
+    for (int i = 0; i < x; i++) {
+        for (int j = 0; j < y; j++) {
             fprintf(file,"%d",matrix[i][j]);
+        }
+        fprintf(file,"\n");
+    }
+}
+
+void printinscreen(int **matrix1, int **matrix2, int **matrix3, int x, int y){
+    for (int i = 0; i < x; i++) {
+        for (int j = 0; j < y; j++) {
+            printf("%d",matrix1[i][j]);
+        }
+        printf("     ");
+        for (int j = 0; j < y; j++) {
+            printf("%d",matrix2[i][j]);
+        }
+        printf("     ");
+        for (int j = 0; j < y; j++) {
+            printf("%d",matrix1[i][j]);
         }
         printf("\n");
     }
@@ -37,12 +56,13 @@ void show(char *ogfile, int **plana, int **vertical, int **horizontal, const int
     strcat(plananame,ogfile);
     strcat(verticalname,ogfile);
     strcat(horizontalname,ogfile);
-    strcat(plananame,"-txt.txt");
-    strcat(verticalname,"-txt.txt");
-    strcat(horizontalname,"-txt.txt");
+    strcat(plananame,".txt");
+    strcat(verticalname,".txt");
+    strcat(horizontalname,".txt");
     planafile = fopen(plananame,"w");
     verticalfile = fopen(verticalname,"w");
     horizontalfile = fopen(horizontalname,"w");
+    printf("\e[1;1H\e[2J");
     //Aqui luego hago el llamado a la funcion para la iteracion 0, aka estado inicial
     for (int i = -1; i < iter; i++) {
 
@@ -52,17 +72,20 @@ void show(char *ogfile, int **plana, int **vertical, int **horizontal, const int
             fprintf(planafile, "Iteracion %d\n", i + 1);
             fprintf(verticalfile, "Iteracion %d\n", i + 1);
             fprintf(horizontalfile, "Iteracion %d\n", i + 1);
+            printf("Iteración %d\n", i+1);
             fprintf(planafile, "\n");
             fprintf(verticalfile, "\n");
             fprintf(horizontalfile, "\n");
+            printf("\n");
+
         }
-        printf("Iteracion %d",i+1);
-        if (i==-1){
-            printf(" (iteración inicial)");
+        else{
+            printf("Iteracion %d (iteración inicial)",i+1);
+            printf("\n");
+            printf("\n");
         }
-        printf("\n");
         //Imprimimos los títulos con los espacios respectivos
-        printf(" MATRIZ PLANA      ");
+        printf("MATRIZ PLANA     ");
         if (x>17){
             int spaces=x-17;
             for (int j = 0; j < spaces; j++) {
@@ -70,7 +93,7 @@ void show(char *ogfile, int **plana, int **vertical, int **horizontal, const int
             }
         }
         else printf("     ");
-        printf(" CONTINUA VERTICAL      ");
+        printf("CONTINUA VERTICAL     ");
         if (x>22){
             int spaces=x-22;
             for (int j = 0; j < spaces; j++) {
@@ -78,65 +101,19 @@ void show(char *ogfile, int **plana, int **vertical, int **horizontal, const int
             }
         }
         else printf("     ");
-        printf(" CONTINUA HORIZONTAL\n");
-        for (int n = 0; n < 3; n++) {
-            for (int j = 0; j < x; j++) {
-                if (!j)
-                    printf("%c",201);
-                if (j==x-1)
-                    printf("%c",187);
-                else printf("%c",205);
-            }
-            if (n<2)
-                printf("     ");
-            else printf("\n");
-        }
+        printf("CONTINUA HORIZONTAL\n");
         if (i>-1){
             //Aquí se supone que hacemos los llamados a las 3 funciones generadoras para luego mostrar en pantalla
-            printinfile(planafile,plana,x,y);
-            printinfile(verticalfile,vertical,x,y);
-            printinfile(horizontalfile,horizontal,x,y);
+            automatePlana(plana,x,y);
+            automateVert(vertical,x,y);
+            automateHorz(horizontal,x,y);
         }
         //Primero escribimos en los archivos
+        printinfile(planafile,plana,x,y);
+        printinfile(verticalfile,vertical,x,y);
+        printinfile(horizontalfile,horizontal,x,y);
         //Ahora se imprime en pantalla, uno al lado del otro
-        //Este for es para la línea
-        for (int j = 0; j < y; j++) {
-            //Un for pa la primera matriz
-            printf("%c",186);
-            for (int k = 0; k < x; k++) {
-                if (!plana[j][k]){
-                    printf(" ");
-                } else printf("%c",219);
-            }
-            printf("%c",186);
-            //5 espacios entre matrices
-            printf("      ");
-            //Un for para la segunda matriz
-            printf("%c",186);
-            for (int l = 0; l < x; l++) {
-                if (!vertical[j][l]){
-                    printf(" ");
-                } else printf("%c",219);
-            }
-            printf("%c",186);
-            //5 espacios
-            printf("     ");
-            //for para la 3ra matriz
-            printf("%c",186);
-            for (int m = 0; m < x; m++) {
-                if (!horizontal[j][m]){
-                    printf(" ");
-                } else printf("%c",219);
-            }
-            //Salto de linea entre las filas
-            printf("%c\n",186);
-        }
-        //borde bomnito
-        printf("%c",200);
-        for (int a = 0; a < x; a++) {
-            printf("%c",205);
-        }
-        printf("%c",188);
+        printinscreen(plana,vertical,horizontal,x,y);
         usleep(time*1000);
     }
     fclose(planafile);
