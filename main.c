@@ -1,20 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "libvalidate.h"
-#include "functionGeneration.h"
 #include "libvisual.h"
-#include "arthurlib.h"
+#include "libgenerate.h"
 
-//Validacion finalizada
-//Proyecto casi terminado
-//TODO arreglar el error del al liberar la variable string PRIORITARIO
-//TODO arreglar los títulos de las matrices
-//TODO espaciados entre matrices y títulos en los archivos
-//TODO arreglar comentarios y cambiar el nombre a los archivos
-//TODO arreglar cabeceras de archivos para que aparezcan los dos nombres
 
-//Variable content=matriz principal
-//Variables X y Y representan la cantidad de filas y columnas.
 int main() {
     char *name=(char *)malloc(FILENAME_MAX*sizeof(char ));
     int n,t;

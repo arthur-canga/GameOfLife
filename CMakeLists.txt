@@ -3,4 +3,4 @@ project(GameOfLife C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(GameOfLife main.c validation.c libvalidate.h createGeneration.c functionGeneration.h visualization.c libvisual.h arthurgenerate.c arthurlib.h)
+add_executable(GameOfLife main.c validation.c libvalidate.h visualization.c libvisual.h generation.c libgenerate.h)

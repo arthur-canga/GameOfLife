@@ -1,6 +1,8 @@
 //
-// Por Arturo Canga. V-25.696.222
-// Para AyPII, creado el 7/6/20
+// Biblioteca de validación
+// Arturo Canga. V-25.696.222
+// Luis Fernandez. V-
+// Para AyPII. Primer Proyecto. Creado el 7/6/20
 //
 
 #include <stdio.h>
@@ -68,14 +70,17 @@ int balanceyvalores(const char *s){
         if(*s!='0' && *s!='1' && *s!=',' && *s!='{' && *s!='}')
             return 0;
         s++;
+        if (corch>2 || corch<0){
+            fprintf(stderr,"Error en los corchetes. Muchos corchetes abiertos o desbalanceado");
+            exit(1);
+        }
     }
     if(corch)
         return 0;
     else return 1;
 }
 
-//Chequea que la fila sea valida
-
+//Chequea que la estructura completa sea válida
 int check(const char array[], int limit){
     int dim=0;
     int dimaux=0;
