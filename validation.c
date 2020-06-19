@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
 
 //Halla el ultimo elemento del arreglo. Usado para la funcion check
@@ -19,15 +18,11 @@ int limiter(const char array[]){
 }
 
 //Lee el archivo y extrae su contenido en una cadena
-char *lectura(char *name){
-    char dir[FILENAME_MAX];
-    getcwd(dir,FILENAME_MAX);
-    char fulldir[FILENAME_MAX]="\0";
-    strcat(fulldir,dir);
-    strcat(fulldir,"/");
-    strcat(fulldir,name);
-    strcat(fulldir,".txt");
-    FILE *archivo=fopen(fulldir,"r");
+char *lectura(char *name, int namesize){
+    char *aux=(char *)malloc((namesize+4)*sizeof(char));
+    strcpy(aux,name);
+    strcat(aux,".txt");
+    FILE *archivo=fopen(aux,"r");
     if (!archivo){
         fprintf(stderr,"Error de apertura. El archivo no existe");
         exit(0);
@@ -45,6 +40,8 @@ char *lectura(char *name){
     if (buff[last-1]!='\n')
         strcat(content,buff);
     fclose(archivo);
+    int contsize=limiter(content);
+    content=(char *)realloc(content,contsize+1);
     return content;
 }
 
@@ -82,6 +79,7 @@ int balanceyvalores(const char *s){
 
 //Chequea que la estructura completa sea válida
 int check(const char array[], int limit){
+    //Variables dim cuentan las comas dentro de las filas
     int dim=0;
     int dimaux=0;
     int i=2;
@@ -108,6 +106,7 @@ int check(const char array[], int limit){
             }
         }
     }
+
     while(i!=limit){
         //Luego de la primera fila, debe ir una comma
         if(array[i]==','){
@@ -192,9 +191,9 @@ int **generatematrix(char *string, int *X, int *Y){
 }
 
 //Resume el proceso de obtencion de la cadena y de la validacion
-char *obtainer(char *s){
+char *obtainer(char *s, int size){
     char *fullcontent;
-    fullcontent=lectura(s);
+    fullcontent=lectura(s, size);
     eliminarespacios(fullcontent);
     if (balanceyvalores(fullcontent)){
         int i=limiter(fullcontent);

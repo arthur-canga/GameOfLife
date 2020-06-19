@@ -20,4 +20,4 @@ int getdimX(const char *s);
 
 int **generatematrix(char *string, int *X, int *Y);
 
-char *obtainer(char *s);
+char *obtainer(char *s, int namesize);

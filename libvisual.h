@@ -9,4 +9,4 @@
 
 void printinfile(FILE *file, int **matrix, int x, int y);
 
-void show(char *ogfile, int **plana, int **vertical, int **horizontal, int x, int y, int time, int iter);
+void show(char *ogfile, int ogsize, int **plana, int **vertical, int **horizontal, int x, int y, int time, int iter);

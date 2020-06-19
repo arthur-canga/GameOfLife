@@ -6,6 +6,7 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include "libgenerate.h"
@@ -60,19 +61,14 @@ void printinscreen(int **matrix1, int **matrix2, int **matrix3, int x, int y){
 
 
 //Sistema de iteración
-void show(char *ogfile, int **plana, int **vertical, int **horizontal, const int x, const int y, int time, int iter){
+void show(char *ogfile, int ogsize, int **plana, int **vertical, int **horizontal, const int x, const int y, int time, int iter){
     FILE *planafile, *verticalfile, *horizontalfile;
-    char dir[FILENAME_MAX];
-    getcwd(dir,FILENAME_MAX);
-    char plananame[FILENAME_MAX]="\0";
-    char verticalname[FILENAME_MAX]="\0";
-    char horizontalname[FILENAME_MAX]="\0";
-    strcat(plananame,dir);
-    strcat(verticalname,dir);
-    strcat(horizontalname,dir);
-    strcat(plananame,"/output-matriz-plana-");
-    strcat(verticalname,"/output-matriz-vertical-");
-    strcat(horizontalname,"/output-matriz-horizontal-");
+    char *plananame=(char *)malloc((25+ogsize)*sizeof(char));
+    char *verticalname=(char *)malloc((28+ogsize)*sizeof(char));
+    char *horizontalname=(char *)malloc((30+ogsize)*sizeof(char));
+    strcpy(plananame,"output-matriz-plana-");
+    strcpy(verticalname,"output-matriz-vertical-");
+    strcpy(horizontalname,"output-matriz-horizontal-");
     strcat(plananame,ogfile);
     strcat(verticalname,ogfile);
     strcat(horizontalname,ogfile);
