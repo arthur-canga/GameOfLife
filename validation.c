@@ -41,7 +41,7 @@ char *lectura(char *name, int namesize){
         strcat(content,buff);
     fclose(archivo);
     int contsize=limiter(content);
-    content=(char *)realloc(content,contsize+1);
+    content=(char *)realloc(content,contsize);
     return content;
 }
 
@@ -195,6 +195,7 @@ char *obtainer(char *s, int size){
     char *fullcontent;
     fullcontent=lectura(s, size);
     eliminarespacios(fullcontent);
+    fullcontent=(char *)realloc(fullcontent,limiter(fullcontent));
     if (balanceyvalores(fullcontent)){
         int i=limiter(fullcontent);
         if (!check(fullcontent,i)){
