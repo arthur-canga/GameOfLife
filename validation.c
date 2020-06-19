@@ -1,5 +1,5 @@
 //
-// Biblioteca de validación
+// Source code de validación
 // Arturo Canga. V-25.696.222
 // Luis Fernandez. V-
 // Para AyPII. Primer Proyecto. Creado el 7/6/20
@@ -143,6 +143,36 @@ int check(const char array[], int limit){
     return 1;
 }
 
+//Verifica si es una fila y si está validada
+int esfila(const char s[],int size){
+    int corch=0;
+    for (int i = 0; i < size; i++) {
+        if (s[i]=='{')
+            corch++;
+        if (s[i]=='}')
+            corch--;
+        if (corch>1)
+            return 0;
+    }
+    if (s[0]!='{' && s[size-1]!='}')
+        return 0;
+    for (int i = 1; s[i]!='}' ; i++) {
+        if (i%2 && (s[i]!='0' && s[i]!='1'))
+            return 0;
+        if (!(i%2) && s[i]!=',')
+            return 0;
+        if (s[size-2]==',')
+            return 0;
+    }
+    return 1;
+}
+
+int loner(const char *s, int size){
+    if (s[0]=='{' && (s[1]=='0' || s[1]=='1') && s[2]=='}' && size=='4')
+        return 1;
+    else return 0;
+}
+
 //Obtiene la dimensión en X (cantidad de filas)
 int getdimX(const char *s){
     int dim=0;
@@ -167,9 +197,9 @@ int **generatematrix(char *string, int *X, int *Y){
     *X=getdimX(string);
     *Y=getdimY(string);
     //Reservamos espacio
-    int **matrix=(int **)malloc(*X*sizeof(int*));
-    for (int a = 0; a < *Y; a++) {
-        matrix[a]=(int *)malloc(*Y*sizeof(int));
+    int **matrix=(int **)malloc((*X) * sizeof(int*));
+    for (int c = 0; c < *X; c++) {
+        matrix[c]=(int *)malloc((*Y) * sizeof(int));
     }
     int j;
     int s=0;
@@ -195,16 +225,17 @@ char *obtainer(char *s, int size){
     char *fullcontent;
     fullcontent=lectura(s, size);
     eliminarespacios(fullcontent);
-    fullcontent=(char *)realloc(fullcontent,limiter(fullcontent));
+    fullcontent=(char *)realloc(fullcontent,limiter(fullcontent)-1);
     if (balanceyvalores(fullcontent)){
         int i=limiter(fullcontent);
-        if (!check(fullcontent,i)){
+        if (!check(fullcontent,i) && !esfila(fullcontent,i) && !loner(fullcontent,i)){
             fprintf(stderr,"Formato invalido. Programa finalizado");
-            exit(0);
+            exit(1);
         }
-    } else {
+    }
+    else {
         fprintf(stderr,"Formato invalido. Incongruencia de corchetes o caracteres invalidos.\nPrograma finalizado");
-        exit(0);
+        exit(1);
     }
     return fullcontent;
 }

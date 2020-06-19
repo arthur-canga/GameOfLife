@@ -1,10 +1,11 @@
 //
-// Por Arturo Canga. V-25.696.222
-// Para AyPII, creado el 7/6/20
-//
+// Biblioteca de validación
+// Arturo Canga. V-25.696.222
+// Luis Fernandez. V-
+// Para AyPII. Primer Proyecto. Creado el 7/6/20
 //
 
-char *lectura(char *name);
+char *lectura(char *name, int namesize);
 
 void eliminarespacios(char *s);
 
@@ -13,6 +14,10 @@ int balanceyvalores(const char *s);
 int limiter(const char array[]);
 
 int check(const char array[], int limit);
+
+int esfila(const char s[],int size);
+
+int loner(const char *s, int size);
 
 int getdimY(const char *s);
 

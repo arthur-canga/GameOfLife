@@ -1,5 +1,5 @@
 //
-// Biblioteca de visualización
+// Source code de visualización
 // Arturo Canga. V-25.696.222
 // Luis Fernández. V-
 // Para AyPII. Primer Proyecto. Creado el 13/6/20
@@ -15,7 +15,9 @@
 void printinfile(FILE *file, int **matrix, int x, int y){
     for (int i = 0; i < x; i++) {
         for (int j = 0; j < y; j++) {
-            fprintf(file,"%d",matrix[i][j]);
+            if (!matrix[i][j])
+                fprintf(file,"_");
+            else fprintf(file,"0");
         }
         fprintf(file,"\n");
     }
@@ -27,7 +29,7 @@ void printinscreen(int **matrix1, int **matrix2, int **matrix3, int x, int y){
     for (int i = 0; i < x; i++) {
         for (int j = 0; j < y; j++) {
             if (!matrix1[i][j])
-                printf(".");
+                printf("_");
             else printf("0");
         }
         if (y<12){
@@ -39,7 +41,7 @@ void printinscreen(int **matrix1, int **matrix2, int **matrix3, int x, int y){
         printf("     ");
         for (int j = 0; j < y; j++) {
             if (!matrix2[i][j])
-                printf(".");
+                printf("_");
             else printf("0");
         }
         if (y<11){
@@ -51,7 +53,7 @@ void printinscreen(int **matrix1, int **matrix2, int **matrix3, int x, int y){
         printf("     ");
         for (int j = 0; j < y; j++) {
             if (!matrix3[i][j])
-                printf(".");
+                printf("_");
             else printf("0");
         }
         printf("\n");

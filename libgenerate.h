@@ -1,7 +1,8 @@
 //
-// Por Arturo Canga. V-25.696.222
-// Para AyPII, creado el 16/6/20
-//
+// Source code de generación celular
+// Arturo Canga. V-25.696.222
+// Luis Fernandez. V-
+// Para AyPII. Primer proyecto. Creado el 14/6/20
 //
 
 void checkplana(int **matrix, int **aux, int n, int m, int x, int y);

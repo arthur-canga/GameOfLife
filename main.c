@@ -1,3 +1,10 @@
+//
+// Código principal
+// Arturo Canga. V-25.696.222
+// Luis Fernandez. V-28.002.235
+// Para AyPII. Primer proyecto. Creado el 7/6/20
+//
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "libvalidate.h"
