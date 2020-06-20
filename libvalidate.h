@@ -19,9 +19,9 @@ int esfila(const char s[],int size);
 
 int loner(const char *s, int size);
 
-int getdimY(const char s[], int size);
+int getdimY(const char *s);
 
-int getdimX(const char s[], int size);
+int getdimX(const char *s);
 
 int **generatematrix(char *string, int *X, int *Y);
 
