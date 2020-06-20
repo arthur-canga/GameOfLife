@@ -167,14 +167,14 @@ int esfila(const char s[],int size){
     return 1;
 }
 
-int loner(const char *s, int size){
+int loner(const char s[], int size){
     if (s[0]=='{' && (s[1]=='0' || s[1]=='1') && s[2]=='}' && size=='4')
         return 1;
     else return 0;
 }
 
 //Obtiene la dimensión en X (cantidad de filas)
-int getdimX(const char *s){
+int getdimX(const char s[], int size){
     int dim=0;
     for (int i = 0; s[i] ; i++) {
         if (s[i]==',' && (s[i-1]=='}' && s[i+1]=='{'))
@@ -184,7 +184,7 @@ int getdimX(const char *s){
 }
 
 //Obtiene la dimensión en Y (casillas de arreglo individual)
-int getdimY(const char *s){
+int getdimY(const char s[], int size){
     int dim=0;
     for (int i = 0; s[i]!='}' ; i++) {
         if (s[i]==',' && (s[i+1]=='0' || s[i+1]=='1'))
@@ -194,8 +194,9 @@ int getdimY(const char *s){
 }
 
 int **generatematrix(char *string, int *X, int *Y){
-    *X=getdimX(string);
-    *Y=getdimY(string);
+    int size=limiter(string);
+    *X=getdimX(string,size);
+    *Y=getdimY(string,size);
     //Reservamos espacio
     int **matrix=(int **)malloc((*X) * sizeof(int*));
     for (int c = 0; c < *X; c++) {
