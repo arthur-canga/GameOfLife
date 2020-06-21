@@ -65,12 +65,12 @@ void printinscreen(int **matrix1, int **matrix2, int **matrix3, int x, int y){
 //Sistema de iteración
 void show(char *ogfile, int ogsize, int **plana, int **vertical, int **horizontal, const int x, const int y, int time, int iter){
     FILE *planafile, *verticalfile, *horizontalfile;
-    char *plananame=(char *)malloc((25+ogsize)*sizeof(char));
-    char *verticalname=(char *)malloc((28+ogsize)*sizeof(char));
-    char *horizontalname=(char *)malloc((30+ogsize)*sizeof(char));
-    strcpy(plananame,"output-matriz-plana-");
-    strcpy(verticalname,"output-matriz-vertical-");
-    strcpy(horizontalname,"output-matriz-horizontal-");
+    char *plananame=(char *)malloc((18+ogsize)*sizeof(char));
+    char *verticalname=(char *)malloc((21+ogsize)*sizeof(char));
+    char *horizontalname=(char *)malloc((23+ogsize)*sizeof(char));
+    strcpy(plananame,"output-plana-");
+    strcpy(verticalname,"output-vertical-");
+    strcpy(horizontalname,"output-horizontal-");
     strcat(plananame,ogfile);
     strcat(verticalname,ogfile);
     strcat(horizontalname,ogfile);
@@ -80,6 +80,9 @@ void show(char *ogfile, int ogsize, int **plana, int **vertical, int **horizonta
     planafile = fopen(plananame,"w");
     verticalfile = fopen(verticalname,"w");
     horizontalfile = fopen(horizontalname,"w");
+    free(plananame);
+    free(verticalname);
+    free(horizontalname);
     printf("\e[1;1H\e[2J");
     //Aqui luego hago el llamado a la funcion para la iteracion 0, aka estado inicial
     for (int i = -1; i < iter; i++) {
@@ -95,9 +98,14 @@ void show(char *ogfile, int ogsize, int **plana, int **vertical, int **horizonta
 
         }
         else{
-            printf("Iteracion %d (iteración inicial)",i+1);
+            printf("Iteracion 0 (iteración inicial)\n");
             printf("\n");
-            printf("\n");
+            fprintf(planafile,"Iteracion 0 (iteración inicial)\n");
+            fprintf(planafile,"\n");
+            fprintf(verticalfile,"Iteracion 0 (iteración inicial)\n");
+            fprintf(verticalfile,"\n");
+            fprintf(horizontalfile,"Iteracion 0 (iteración inicial)\n");
+            fprintf(horizontalfile,"\n");
         }
         //Imprimimos los títulos con los espacios respectivos
         printf("MATRIZ PLANA");
@@ -134,4 +142,7 @@ void show(char *ogfile, int ogsize, int **plana, int **vertical, int **horizonta
     fclose(planafile);
     fclose(verticalfile);
     fclose(horizontalfile);
+    free(plana);
+    free(vertical);
+    free(horizontal);
 }

@@ -211,24 +211,28 @@ void checkvertical(int **matrix, int **aux, int n, int m, int x, int y) {
         }
     }else if (x == 1 && y > 1) {
         //Matriz fila
-
+        if (matrix[n][m])
+            vecinos+=2;
         //No es borde
         if (m > 0 && m < (y - 1)) {
             if (matrix[n][m - 1])
-                vecinos++;
+                vecinos+=3;
             if (matrix[n][m + 1])
-                vecinos++;
+                vecinos+=3;
         }
-        //Borde superior
+        //Borde izquierdo
         if (!m) {
-            if (matrix[n][m - 1])
-                vecinos++;
-        }
-        if (m == (x - 1)) {
             if (matrix[n][m + 1])
-                vecinos++;
+                vecinos+=3;
+        }
+        //Borde derecho
+        if (m == (y - 1)) {
+            if (matrix[n][m - 1])
+                vecinos+=3;
         }
     } else {
+        //Caso general
+
         //Si no es borde ni esquina
         if (n > 0 && m > 0 && n < (x - 1) && m < (y - 1)) {
             if (matrix[n - 1][m - 1])
@@ -389,22 +393,24 @@ void checkhorizontal(int **matrix, int **aux, int n, int m, int x, int y) {
         else vecinos=0;
     } else if (y == 1 && x > 1) {
     //Matriz columna
-
+        if (matrix[n][m])
+            vecinos+=2;
         //No es borde
         if (n > 0 && n < (x - 1)) {
-            if (matrix[n - 1][m])
-                vecinos++;
-            if (matrix[n + 1][m])
-                vecinos++;
+            if (matrix[n-1][m])
+                vecinos+=3;
+            if (matrix[n+1][m])
+                vecinos+=3;
         }
         //Borde superior
         if (!n) {
             if (matrix[n + 1][m])
-                vecinos++;
+                vecinos+=3;
         }
+        //Borde inferior
         if (n == (x - 1)) {
             if (matrix[n - 1][m])
-                vecinos++;
+                vecinos+=3;
         }
     }else if (x == 1 && y > 1) {
         //Matriz fila
@@ -423,7 +429,7 @@ void checkhorizontal(int **matrix, int **aux, int n, int m, int x, int y) {
             if (matrix[n][y - 1])
                 vecinos++;
         }
-        if (m == (x - 1)) {
+        if (m == (y - 1)) {
             if (matrix[n][m - 1])
                 vecinos++;
             if (matrix[n][0])

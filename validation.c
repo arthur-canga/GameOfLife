@@ -37,7 +37,7 @@ char *lectura(char *name, int namesize){
         fgets(buff,FILENAME_MAX,archivo);
     }
     int last=limiter(buff);
-    if (buff[last-1]!='\n')
+    if (last && buff[last-1]!='\n')
         strcat(content,buff);
     fclose(archivo);
     int contsize=limiter(content);
@@ -94,7 +94,7 @@ int check(const char array[], int limit){
 
     //Chequeo de primera fila y calculo de dimension
     for (; array[i]!='}' ; i++) {
-        if ((array[i]=='0' || array[i]=='1') && (array[i+1]!=',' && array[i+1]!='}')){
+        if (array[i]=='1' && (array[i+1]!=',' && array[i+1]!='}')){
             printf("Error encontrado en posicion %d. Valor invalido\n", i);
             return 0;
         }
@@ -106,16 +106,25 @@ int check(const char array[], int limit){
             }
         }
     }
-
+    i++;
     while(i!=limit){
-        //Luego de la primera fila, debe ir una comma
+        //Luego de cada fila, debe ir una coma
         if(array[i]==','){
             //Si es una coma, aumentamos el contador
             i++;
+            if (array[i]!='{'){
+                printf("Error encontrado en posicion %d\n",i);
+                return 0;
+            }
+            i++;
+            if (array[i]!='0' && array[i]!='1'){
+                printf("Error encontrado en posicion %d\n",i);
+                return 0;
+            }
             //Empezamos a leer el siguiente arreglo
             for ( ; array[i]!='}' ; i++) {
-                //Si estoy en un numero y el siguiente no es coma o cierre de corchete...
-                if ((array[i]=='0' || array[i]=='1') && (array[i+1]!=',' && array[i+1]!='}')) {
+                //Si estoy en un 1 y el siguiente no es coma o cierre de corchete, num muy grande
+                if (array[i]=='1' && (array[i+1]!=',' && array[i+1]!='}')) {
                     printf("Error encontrado en posicion %d. Valor invalido\n", i);
                     return 0;
                 }
@@ -135,7 +144,9 @@ int check(const char array[], int limit){
                 printf("Error. Dimensiones incorrectas\n");
                 return 0;
             }
-        }
+            //Sino hay un error de dimensión
+        } else if (i!=(limit-1))
+            return 0;
         //Aumentamos 1 porque caimos en un '}'
         i++;
         dimaux=0;
@@ -157,9 +168,9 @@ int esfila(const char s[],int size){
     if (s[0]!='{' && s[size-1]!='}')
         return 0;
     for (int i = 1; s[i]!='}' ; i++) {
-        if (i%2 && (s[i]!='0' && s[i]!='1'))
+        if (s[i]=='1' && (s[i+1]!=',' && s[i+1]!='}'))
             return 0;
-        if (!(i%2) && s[i]!=',')
+        if (s[i]==',' && (s[i-1]!='0' && s[i-1]!='1') && (s[i+1]!='0' && s[i+1]!='1'))
             return 0;
         if (s[size-2]==',')
             return 0;
@@ -174,9 +185,9 @@ int loner(const char s[], int size){
 }
 
 //Obtiene la dimensión en X (cantidad de filas)
-int getdimX(const char s[], int size){
+int getdimX(const char *s){
     int dim=0;
-    for (int i = 0; s[i] ; i++) {
+    for (int i = 0; s[i] ;  *s++) {
         if (s[i]==',' && (s[i-1]=='}' && s[i+1]=='{'))
             dim++;
     }
@@ -184,7 +195,7 @@ int getdimX(const char s[], int size){
 }
 
 //Obtiene la dimensión en Y (casillas de arreglo individual)
-int getdimY(const char s[], int size){
+int getdimY(const char *s){
     int dim=0;
     for (int i = 0; s[i]!='}' ; i++) {
         if (s[i]==',' && (s[i+1]=='0' || s[i+1]=='1'))
@@ -194,9 +205,8 @@ int getdimY(const char s[], int size){
 }
 
 int **generatematrix(char *string, int *X, int *Y){
-    int size=limiter(string);
-    *X=getdimX(string,size);
-    *Y=getdimY(string,size);
+    *X=getdimX(string);
+    *Y=getdimY(string);
     //Reservamos espacio
     int **matrix=(int **)malloc((*X) * sizeof(int*));
     for (int c = 0; c < *X; c++) {
@@ -211,7 +221,7 @@ int **generatematrix(char *string, int *X, int *Y){
         //for recorre la cadena, variable declarada para guardar el valor
         for (; string[s]!='}'; s++) {
             //Guarda valor si es un 0 o 1. Resta 48 porque obtiene el valor ASCII
-            if (string[s]=='0' || string[s]=='1'){
+            if ((string[s]=='0' || string[s]=='1') && (string[s+1]==',' || string[s+1]=='}')){
                 matrix[i][j]=string[s]-48;
                 j++;
             }
@@ -230,7 +240,7 @@ char *obtainer(char *s, int size){
     if (balanceyvalores(fullcontent)){
         int i=limiter(fullcontent);
         if (!check(fullcontent,i) && !esfila(fullcontent,i) && !loner(fullcontent,i)){
-            fprintf(stderr,"Formato invalido. Programa finalizado");
+            fprintf(stderr,"Formato invalido. Programa finalizado\n");
             exit(1);
         }
     }

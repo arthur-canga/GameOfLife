@@ -31,5 +31,6 @@ int main() {
     int **horizontal=generatematrix(string,&x,&y);
     free(string);
     show(name,namesize,plana,vertical,horizontal,x,y,t,n);
+    free(name);
     return 0;
 }
