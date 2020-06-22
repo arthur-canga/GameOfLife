@@ -1,7 +1,7 @@
 //
 // Source code de visualización
 // Arturo Canga. V-25.696.222
-// Luis Fernández. V-
+// Luis Fernández. V-28.002.235
 // Para AyPII. Primer Proyecto. Creado el 13/6/20
 //
 

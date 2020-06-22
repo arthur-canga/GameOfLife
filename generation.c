@@ -1,7 +1,7 @@
 //
 // Source code de generación celular
 // Arturo Canga. V-25.696.222
-// Luis Fernandez. V-
+// Luis Fernandez. V-28.002.235
 // Para AyPII. Primer proyecto. Creado el 14/6/20
 //
 

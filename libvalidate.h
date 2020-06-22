@@ -1,7 +1,7 @@
 //
 // Biblioteca de validación
 // Arturo Canga. V-25.696.222
-// Luis Fernandez. V-
+// Luis Fernandez. V-28.002.235
 // Para AyPII. Primer Proyecto. Creado el 7/6/20
 //
 

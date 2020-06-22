@@ -1,7 +1,7 @@
 //
 // Source code de validación
 // Arturo Canga. V-25.696.222
-// Luis Fernandez. V-
+// Luis Fernandez. V-28.002.235
 // Para AyPII. Primer Proyecto. Creado el 7/6/20
 //
 
@@ -22,24 +22,41 @@ char *lectura(char *name, int namesize){
     char *aux=(char *)malloc((namesize+4)*sizeof(char));
     strcpy(aux,name);
     strcat(aux,".txt");
-    FILE *archivo=fopen(aux,"r");
-    if (!archivo){
+    FILE *archivo1=fopen(aux,"r");
+    FILE *archivo2=fopen(name,"r");
+    if (!archivo1 && !archivo2){
         fprintf(stderr,"Error de apertura. El archivo no existe");
         exit(0);
     }
     char *content= (char *)malloc(FILENAME_MAX * sizeof(char));
     char buff[FILENAME_MAX];
     int i=0;
-    fgets(buff,FILENAME_MAX,archivo);
-    while(!feof(archivo)){
-        strcat(content,buff);
-        i++;
-        fgets(buff,FILENAME_MAX,archivo);
+    if (archivo1){
+        fgets(buff,FILENAME_MAX,archivo1);
+        while(!feof(archivo1)){
+            strcat(content,buff);
+            i++;
+            fgets(buff,FILENAME_MAX,archivo1);
+        }
+        int last=limiter(buff);
+        if (last && buff[last-1]!='\n')
+            strcat(content,buff);
+        }
+    else if (archivo2){
+        fgets(buff,FILENAME_MAX,archivo2);
+        while(!feof(archivo2)){
+            strcat(content,buff);
+            i++;
+            fgets(buff,FILENAME_MAX,archivo2);
+        }
+        int last=limiter(buff);
+        if (last && buff[last-1]!='\n')
+            strcat(content,buff);
     }
-    int last=limiter(buff);
-    if (last && buff[last-1]!='\n')
-        strcat(content,buff);
-    fclose(archivo);
+    if (archivo1)
+        fclose(archivo1);
+    if (archivo2)
+        fclose(archivo2);
     int contsize=limiter(content);
     content=(char *)realloc(content,contsize);
     return content;
@@ -179,9 +196,13 @@ int esfila(const char s[],int size){
 }
 
 int loner(const char s[], int size){
+    //Elemento único, arreglo unidimensional
     if (s[0]=='{' && (s[1]=='0' || s[1]=='1') && s[2]=='}' && size=='4')
         return 1;
-    else return 0;
+    //Elemento único, arreglo bidimensional
+    if (s[0]=='{' && s[1]=='{' && (s[2]=='0' || s[2]=='1') && s[3]=='}' && s[4]=='}' && size==5)
+        return 1;
+    return 0;
 }
 
 //Obtiene la dimensión en X (cantidad de filas)
