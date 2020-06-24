@@ -1,4 +1,4 @@
-#EL SIGUIENTE DOCUMENTO SON LOS REQUISITOS ORIGINALES DEL PRIMER PROYECTO PARA AYP2 EL SEMESTRE ABR-JUL 2020 DE LA UCAB GUAYANA
+# EL SIGUIENTE DOCUMENTO SON LOS REQUISITOS ORIGINALES DEL PRIMER PROYECTO PARA AYP2 EL SEMESTRE ABR-JUL 2020 DE LA UCAB GUAYANA
 
 **NOTA**: El contenido de este repositorio es únicamente informativo, no me hago responsable del mal uso de estos programas.
 Así mismo, tampoco me hago responsable ni aliento el uso de estos códigos para cometer plagio. El plagio es una violación de la normativa
