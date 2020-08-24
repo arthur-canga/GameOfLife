@@ -72,4 +72,4 @@ proyecto.**
 
 **Fecha de defensa: Lunes 22 / 06 / 2020 7:30 am**
 
-Proyecto entregado y defendido el día correspondiente
+Proyecto entregado y defendido el día correspondiente. Nota: 18/20
